@@ -1,0 +1,89 @@
+<html>
+<head>
+	<title>Our Only Home</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+	<style>
+		body {
+			background-size: cover;
+			background-position: center;
+			font-family: Lato;
+			padding-top: 50px;
+		}
+
+		html {
+			height: 100%;
+		}
+
+		#content {
+			text-align: center;
+			padding-top: 25%;
+			text-shadow: 0px 4px 3px rgba(0,0,0,0.4),
+						 0px 8px 13px rgba(0,0,0,0.1),
+						 0px 18px 23px rgba(0,0,0,0.1);
+		}
+
+		h1 {
+			color: white;
+			font-weight: 700;
+			font-size: 5em;
+		}
+
+		h3 {
+			color: white;
+		}
+
+		#landing {
+		 width: 400px;
+		 border-top: 1px solid #f8f8f8;
+		 border-bottom: 1px solid rgba(0,0,0,0.2);
+
+		}
+	</style>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-nav-demo" aria-expanded="false">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+				<a href="/" class="navbar-brand">Our Only Home</a>
+			</div>
+			<div class="collapse navbar-collapse" id="bs-nav-demo">
+				<ul class="nav navbar-nav">
+					<li><a href="/">Home</a></li>
+					<li><a href="/climateactions">Climate Actions</a></li>
+					<li><a href="#"></a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<% if(!currentUser){ %>
+					<li><a href="/register">Sign Up <i class="fas fa-user-plus"></i></a></li>
+					<li><a href="/login">Login <i class="fas fa-sign-in-alt"></i></a></li>
+					<% } else { %>
+					<li><a href="#">Signed In As <%= currentUser.username %> <i class="fas fa-user-circle"></i></a></li>
+					<li><a href="/logout">Logout <i class="fas fa-sign-out-alt"></i></a></li>
+					<% } %>
+				</ul>
+			</div>
+		</div>
+</nav>
+	<div class="container">
+        
+        <% if(error && error.length > 0){ %>
+            <div class="alert alert-danger" role="alert">
+                <%= error %>
+            </div>
+        <% } %>
+        <% if(success && success.length > 0){ %>
+            <div class="alert alert-success" role="alert">
+                <%= success %>
+            </div>
+        <% } %>
+    </div>

@@ -1,0 +1,43 @@
+<% include ../partials/header %>
+	
+	<div class="container">	
+		<header class="jumbotron">
+			<div class="container">
+				<h1>Welcome to Our Only Home</h1>
+				<p>View our Climate Actions to Save the Planet	</p>
+				<p>
+					<a class="btn btn-primary btn-lg" href="/climateactions/new">Add Climate Action</a>
+				</p>
+			</div>
+		</header>
+	<div class="row text-center" style="display: flex; flex-wrap: wrap;">
+		<% climateactions.forEach(function(climateaction){ %>
+			<div class="col-md-4 col-sm-8"> 
+				<div class="thumbnail">
+					<img src="<%= climateaction.image %>">
+					<div class="caption">
+						<h4><%= climateaction.name %></h4>
+						<% if(climateaction.category == "Global"){ %>
+						<p class="pull-right">Global <i class="fas fa-globe"></i></p>
+						<% } else if(climateaction.category == "Individual"){ %>
+						<p class="pull-right">Individual <i class="far fa-user"></i></p>
+						<% } else{ %>
+						<p class="pull-right">National <i class="far fa-flag"></i></p>
+						<% } %>
+						<p class="pull-left">Carbon Reduction: 
+						<%= climateaction.carbonreduction %> t/year </p>
+					</div>
+						<p><br>
+						<a href="/climateactions/<%= climateaction._id %>" class="btn btn-primary" >More Information</a>
+						</p>
+				</div>
+				
+				
+			</div>
+		<% }); %>
+
+
+		</div>
+	</div>
+</div>
+<% include ../partials/footer %>

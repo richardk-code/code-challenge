@@ -1,0 +1,80 @@
+<% include ../partials/header %>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="list-group">
+                <li class="list-group-item active"><% if(climateaction.category == "Global"){ %>
+						Global <i class="fas fa-globe"></i>
+						<% } else if(climateaction.category == "Individual"){ %>
+						Individual <i class="far fa-user"></i>
+						<% } else{ %>
+						National <i class="far fa-flag"></i>
+						<% } %></li>
+				<li class="list-group-item active">Adding 
+					<% if((parseFloat(climateaction.carbonreduction)/114998400) > 1){ %>
+						<%= Math.round(parseFloat(climateaction.carbonreduction)/114998400) %> days
+					<% } else if((parseFloat(climateaction.carbonreduction)/4791600) > 1){ %>
+						<%= Math.round(parseFloat(climateaction.carbonreduction)/4791600) %> hours
+					<% } else if((parseFloat(climateaction.carbonreduction)/79860) > 1){ %>
+						<%= Math.round(parseFloat(climateaction.carbonreduction)/79860) %> minutes
+					<% } else if((parseFloat(climateaction.carbonreduction)/1331) > 1){ %>
+						<%= Math.round(parseFloat(climateaction.carbonreduction)/1331) %> seconds
+					<% } else { %>
+					<%= Math.round(parseFloat(climateaction.carbonreduction)/1.331)%> miliseconds 
+					<% } %>
+					to the carbon clock per year</li>
+            </div>
+			<div class="list-group">
+				<li class="list-group-item active embed-responsive embed-responsive-4by3">
+					<iframe class="embeded-responsive-item" src="https://www.mcc-berlin.net/fileadmin/data/clock/carbon_clock.htm?i=3267263"></iframe>
+				</li>
+			</div>
+        </div>
+        <div class="col-md-8">
+            <div class="thumbnail">
+                <img class="img-responsive" src="<%= climateaction.image %>">
+                <div class="caption-full">
+                    <h4 class="pull-right">Carbonreduction: <%= climateaction.carbonreduction %> t/year</h4>
+                    <h4><a><%=climateaction.name%></a></h4>
+                    <p><%= climateaction.description %></p>
+					<p>
+                        <em>Submitted By <%= climateaction.author.username %></em>
+                    </p>
+					<p>Source: <a href=<%= climateaction.source %>><%= climateaction.source %></a></p>
+					<% if(currentUser && climateaction.author.id.equals(currentUser._id)){ %>
+						<a class="btn btn-warning" href="/climateactions/<%= climateaction._id %>/edit"><i class="fas fa-edit"></i> Edit</a>
+						<form style="display: inline;" id="delete" action="/climateactions/<%= climateaction._id %>?_method=DELETE" method="POST">
+						<button class="btn btn-danger"> <i class="fas fa-trash-alt"></i> Delete</button>
+            			</form>
+					<% }%>
+                </div>
+			</div>
+            <div class="well">
+                <div class="text-right">
+                    <a class="btn btn-success" href="/climateactions/<%= climateaction._id %>/comments/new">Add New Comment</a>
+                </div>
+                <hr>
+                <% climateaction.comments.forEach(function(comment){ %>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong><%= comment.author.username %></strong>
+                            <span class="pull-right">10 days ago</span>
+                            <p>
+                                <%= comment.text %> 
+                            </p>
+							<% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
+                            <a class="btn btn-warning" 
+                               href="/climateactions/<%=climateaction._id %>/comments/<%=comment._id %>/edit"><i class="fas fa-edit"></i> Edit</a>
+                            <form style="display: inline;" action="/climateactions/<%=climateaction._id %>/comments/<%=comment._id %>?_method=DELETE" method="POST">
+                                <button class="btn btn-danger"> <i class="fas fa-trash-alt"></i> Delete</button>
+                            </form>
+                        <% } %>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+    </div>
+</div>
+<% include ../partials/footer %>
